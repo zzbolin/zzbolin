@@ -19,7 +19,7 @@ def play_rps(player_choice):
     elif (player_choice == "石头" and computer_choice == "剪刀") or \
          (player_choice == "剪刀" and computer_choice == "布") or \
          (player_choice == "布" and computer_choice == "石头"):
-        result = "恭喜，您赢了！"
+        result = "恭喜您全家，赢了！"
     else:
         result = "很遗憾，计算机赢了。"
 
