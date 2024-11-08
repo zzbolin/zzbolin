@@ -33,7 +33,7 @@ def hello_world():
     <h2>^ - ^</h2>
     <a href="/start_game">进入游戏</a>
     <br>
-    <a href="/nb"><img src="dinosaur.gif" /></a>
+    <a href="/nb"><img src="/static/dinosaur.gif" /></a>
     '''
 
 @app.route('/start_game')
@@ -89,7 +89,7 @@ def play_game():
 @app.route('/nb')
 def hello_world2():
     # 第二个页面，包含图片、消息和返回主页的链接
-    return '<h1>牛比不?</h1>  <h2>^ - ^</h2> <a href="/"><img src="dinosaur.gif" /></a> <a href="/">返回主页</a>'
+    return '<h1>牛比不?</h1>  <h2>^ - ^</h2> <a href="/"><img src="/static/dinosaur.gif" /></a> <a href="/">返回主页</a>'
 
 @app.route('/rps', methods=['GET', 'POST'])
 def play_rps_game():
