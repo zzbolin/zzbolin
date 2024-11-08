@@ -19,7 +19,7 @@ def play_rps(player_choice):
     elif (player_choice == "石头" and computer_choice == "剪刀") or \
          (player_choice == "剪刀" and computer_choice == "布") or \
          (player_choice == "布" and computer_choice == "石头"):
-        result = "恭喜您全家，您赢了！"
+        result = "恭喜您，您赢了！"
     else:
         result = "很遗憾，计算机赢了。"
 
@@ -29,7 +29,7 @@ def play_rps(player_choice):
 def hello_world():
     # 主页路由，包含图片、文本和链接
     return '''
-    <h1>张柏林的网站正在建设中...</h1>
+    <h1>张柏林的网站正在搭建中...</h1>
     <h2>^ - ^</h2>
     <a href="/start_game">进入游戏</a>
     <br>
