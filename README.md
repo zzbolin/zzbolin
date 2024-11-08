@@ -11,3 +11,6 @@ git push
 # 访问地址
 zhangbolin.com
 
+# Link命令
+vercel link --project zzbolin-mpdh
+
