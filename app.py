@@ -130,7 +130,7 @@ def novel_index():
         <ul style="margin-right: 20px;">
             {chapter_links}
         </ul>
-        <div id="content" style="border: 1px solid #ccc; padding: 10px; width: 300px;"></div>
+        <div id="content" style="border: 1px solid #ccc; padding: 10px; flex-grow: 1;"></div>
     </div>
     <script>
         function loadChapter(chapter) {{
