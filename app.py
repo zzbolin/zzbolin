@@ -122,14 +122,16 @@ def handle_error(e):
 def novel_index():
     # 获取小说章节列表并按数字排序
     chapters = sorted(os.listdir('XS'), key=lambda x: int(x))  # 假设章节文件在XS文件夹中
-    chapter_links = ''.join([f'<li><a href="/xs/{chapter}">{chapter}</a></li>' for chapter in chapters])
+    chapter_links = ''.join([f'<li><a href="/xs/{chapter}" onclick="loadChapter(\'{chapter}\'); return false;">{chapter}</a></li>' for chapter in chapters])
     
     return f'''
     <h1>小说章节</h1>
-    <ul>
-        {chapter_links}
-    </ul>
-    <div id="content"></div>
+    <div style="display: flex;">
+        <ul style="margin-right: 20px;">
+            {chapter_links}
+        </ul>
+        <div id="content" style="border: 1px solid #ccc; padding: 10px; width: 300px;"></div>
+    </div>
     <script>
         function loadChapter(chapter) {{
             fetch('/xs/' + chapter)
