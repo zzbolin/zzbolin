@@ -127,21 +127,27 @@ def novel_index():
     for index, chapter in enumerate(chapters, start=1):  # 从1开始计数
         with open(os.path.join('XS', chapter), 'r', encoding='utf-8') as f:
             title = f.readline().strip()  # 读取第一行作为章节标题
-        chapter_links += f'<li><a href="/xs/{chapter}" onclick="loadChapter(\'{chapter}\'); return false;">第{index}章: {title}</a></li>'
+        chapter_links += f'<li><a href="/xs/{chapter}" onclick="loadChapter(\'{chapter}\', this); return false;">第{index}章: {title}</a></li>'
     
     return f'''
     <h1>ASNIWATW</h1>
-    <div style="display: flex; gap: 20px; align-items: flex-start;">  <!-- 使用 gap 属性增加间距 -->
-        <ul style="width: 200px; list-style-type: none; padding: 0; margin: 0;">  <!-- 设置固定宽度 -->
+    <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <ul style="width: 200px; list-style-type: none; padding: 0; margin: 0;">
             {chapter_links}
         </ul>
-        <div id="content" style="border: 1px solid #ccc; padding: 10px; max-width: 600px; flex-grow: 1;"></div>  <!-- 限制章节内容的最大宽度 -->
+        <div id="content" style="border: 1px solid #ccc; padding: 10px; max-width: 600px; flex-grow: 1;"></div>
     </div>
     <script>
-        function loadChapter(chapter) {{
+        function loadChapter(chapter, element) {{
             fetch('/xs/' + chapter)
                 .then(response => response.text())
-                .then(data => document.getElementById('content').innerHTML = data);
+                .then(data => {{
+                    document.getElementById('content').innerHTML = data;
+                    // 清除所有按钮的红色样式
+                    const links = document.querySelectorAll('ul a');
+                    links.forEach(link => link.style.color = '');  // 恢复默认颜色
+                    element.style.color = 'red';  // 设置当前按钮为红色
+                }});
         }}
     </script>
     <style>
