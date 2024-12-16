@@ -1,4 +1,5 @@
 import random
+import os
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -116,6 +117,37 @@ def play_rps_game():
 @app.errorhandler(Exception)
 def handle_error(e):
     return f'<h1>发生错误: {str(e)}</h1> <a href="/">返回主页</a>', 500
+
+@app.route('/xs')
+def novel_index():
+    # 获取小说章节列表并按数字排序
+    chapters = sorted(os.listdir('XS'), key=lambda x: int(x))  # 假设章节文件在XS文件夹中
+    chapter_links = ''.join([f'<li><a href="/xs/{chapter}">{chapter}</a></li>' for chapter in chapters])
+    
+    return f'''
+    <h1>小说章节</h1>
+    <ul>
+        {chapter_links}
+    </ul>
+    <div id="content"></div>
+    <script>
+        function loadChapter(chapter) {{
+            fetch('/xs/' + chapter)
+                .then(response => response.text())
+                .then(data => document.getElementById('content').innerHTML = data);
+        }}
+    </script>
+    '''
+
+@app.route('/xs/<chapter>')
+def read_chapter(chapter):
+    # 读取指定章节的内容
+    try:
+        with open(os.path.join('XS', chapter), 'r', encoding='utf-8') as f:
+            content = f.read()
+        return f'<h1>章节 {chapter}</h1><p>{content}</p>'
+    except FileNotFoundError:
+        return '<h1>章节未找到</h1> <a href="/xs">返回章节列表</a>'
 
 if __name__ == '__main__':
     app.run()
