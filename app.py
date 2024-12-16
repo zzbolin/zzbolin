@@ -131,8 +131,8 @@ def novel_index():
     
     return f'''
     <h1>ASNIWATW</h1>
-    <div style="display: flex; flex-wrap: nowrap; gap: 20px;">
-        <ul style="margin-right: 20px; list-style-type: none; padding: 0;">
+    <div style="display: flex; gap: 20px;">
+        <ul style="width: 200px; list-style-type: none; padding: 0;">
             {chapter_links}
         </ul>
         <div id="content" style="border: 1px solid #ccc; padding: 10px; flex-grow: 1; min-width: 300px;"></div>
@@ -150,6 +150,7 @@ def novel_index():
                 flex-direction: column;
             }}
             ul {{
+                width: auto;
                 margin-right: 0;
                 margin-bottom: 10px;
             }}
