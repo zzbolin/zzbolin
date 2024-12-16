@@ -131,11 +131,11 @@ def novel_index():
     
     return f'''
     <h1>ASNIWATW</h1>
-    <div style="display: flex; flex-wrap: wrap;">
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
         <ul style="margin-right: 20px; list-style-type: none; padding: 0;">
             {chapter_links}
         </ul>
-        <div id="content" style="border: 1px solid #ccc; padding: 10px; flex-grow: 1; min-width: 300px;"></div>
+        <div id="content" style="border: 1px solid #ccc; padding: 10px; flex-grow: 1; min-width: 300px; margin-top: 20px;"></div>
     </div>
     <script>
         function loadChapter(chapter) {{
@@ -152,6 +152,9 @@ def novel_index():
             ul {{
                 margin-right: 0;
                 margin-bottom: 10px;
+            }}
+            #content {{
+                margin-top: 20px;
             }}
         }}
     </style>
