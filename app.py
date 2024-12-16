@@ -124,10 +124,10 @@ def novel_index():
     chapters = sorted(os.listdir('XS'), key=lambda x: int(x))  # 假设章节文件在XS文件夹中
     chapter_links = ''
     
-    for chapter in chapters:
+    for index, chapter in enumerate(chapters, start=1):  # 从1开始计数
         with open(os.path.join('XS', chapter), 'r', encoding='utf-8') as f:
             title = f.readline().strip()  # 读取第一行作为章节标题
-        chapter_links += f'<li><a href="/xs/{chapter}" onclick="loadChapter(\'{chapter}\'); return false;">{title}</a></li>'
+        chapter_links += f'<li><a href="/xs/{chapter}" onclick="loadChapter(\'{chapter}\'); return false;">第{index}章: {title}</a></li>'
     
     return f'''
     <h1>小说章节</h1>
@@ -153,7 +153,7 @@ def read_chapter(chapter):
         with open(os.path.join('XS', chapter), 'r', encoding='utf-8') as f:
             lines = f.readlines()
             title = lines[0].strip()  # 第一行作为标题
-            content = ''.join(lines[1:])  # 其余行作为内容
+            content = ''.join(lines[1:]).strip()  # 其余行作为内容，去掉前后空白
         return f'<h1>{title}</h1><p>{content}</p>'  # 章节内容不再重复显示标题
     except FileNotFoundError:
         return '<h1>章节未找到</h1> <a href="/xs">返回章节列表</a>'
