@@ -130,7 +130,7 @@ def novel_index():
         chapter_links += f'<li><a href="/xs/{chapter}" onclick="loadChapter(\'{chapter}\', this); return false;">第{index}章: {title}</a></li>'
     
     return f'''
-    <h1>ASNIWATW</h1>
+    <h1>Annoying villagers</h1>
     <div style="display: flex; gap: 20px; align-items: flex-start;">
         <ul style="width: 200px; list-style-type: none; padding: 0; margin: 0;">
             {chapter_links}
