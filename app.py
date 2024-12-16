@@ -1,6 +1,6 @@
 import random
 import os
-from flask import Flask, request
+from flask import Flask, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -130,13 +130,20 @@ def novel_index():
         chapter_links += f'<li><a href="/xs/{chapter}" onclick="loadChapter(\'{chapter}\', this); return false;">第{index}章: {title}</a></li>'
     
     return f'''
-    <h1>Annoying villagers</h1>
+    <h1>ASNIWATW</h1>
     <div style="display: flex; gap: 20px; align-items: flex-start;">
         <ul style="width: 200px; list-style-type: none; padding: 0; margin: 0;">
             {chapter_links}
         </ul>
         <div id="content" style="border: 1px solid #ccc; padding: 10px; max-width: 600px; flex-grow: 1;"></div>
     </div>
+    <h2>添加/修改章节</h2>
+    <form method="POST" action="/add_chapter">
+        <input type="text" name="chapter_name" placeholder="章节文件名（数字）" required>
+        <input type="text" name="chapter_title" placeholder="章节标题" required>
+        <textarea name="chapter_content" placeholder="章节内容" required></textarea>
+        <input type="submit" value="添加/修改章节">
+    </form>
     <script>
         function loadChapter(chapter, element) {{
             fetch('/xs/' + chapter)
@@ -167,6 +174,18 @@ def novel_index():
         }}
     </style>
     '''
+
+@app.route('/add_chapter', methods=['POST'])
+def add_chapter():
+    chapter_name = request.form['chapter_name']
+    chapter_title = request.form['chapter_title']
+    chapter_content = request.form['chapter_content']
+    
+    # 保存章节内容到文件
+    with open(os.path.join('XS', chapter_name), 'w', encoding='utf-8') as f:
+        f.write(f"{chapter_title}\n{chapter_content}")
+    
+    return redirect(url_for('novel_index'))
 
 @app.route('/xs/<chapter>')
 def read_chapter(chapter):
