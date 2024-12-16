@@ -14,3 +14,5 @@ zhangbolin.com
 # Link命令
 vercel link --project zzbolin-mpdh
 
+致ZK：You really are a total idiot
+
