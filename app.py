@@ -131,11 +131,11 @@ def novel_index():
     
     return f'''
     <h1>ASNIWATW</h1>
-    <div style="display: flex; gap: 20px; align-items: flex-start;">
-        <ul style="width: 200px; list-style-type: none; padding: 0; margin: 0;">
+    <div style="display: flex; gap: 20px; align-items: flex-start;">  <!-- 使用 gap 属性增加间距 -->
+        <ul style="width: 200px; list-style-type: none; padding: 0; margin: 0;">  <!-- 设置固定宽度 -->
             {chapter_links}
         </ul>
-        <div id="content" style="border: 1px solid #ccc; padding: 10px; flex-grow: 1; min-width: 300px;"></div>
+        <div id="content" style="border: 1px solid #ccc; padding: 10px; max-width: 600px; flex-grow: 1;"></div>  <!-- 限制章节内容的最大宽度 -->
     </div>
     <script>
         function loadChapter(chapter) {{
@@ -147,15 +147,16 @@ def novel_index():
     <style>
         @media (max-width: 600px) {{
             div {{
-                flex-direction: row;
+                flex-direction: column;  /* 小屏幕时改为垂直方向 */
             }}
             ul {{
-                width: auto;
+                width: auto;  /* 小屏幕上宽度自适应 */
                 margin-right: 0;
                 margin-bottom: 10px;
             }}
             #content {{
-                margin-top: 20px;
+                margin-top: 20px;  /* 在小屏幕上增加顶部间距 */
+                max-width: 100%;  /* 确保在小屏幕上内容宽度自适应 */
             }}
         }}
     </style>
