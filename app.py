@@ -122,7 +122,12 @@ def handle_error(e):
 def novel_index():
     # 获取小说章节列表并按数字排序
     chapters = sorted(os.listdir('XS'), key=lambda x: int(x))  # 假设章节文件在XS文件夹中
-    chapter_links = ''.join([f'<li><a href="/xs/{chapter}" onclick="loadChapter(\'{chapter}\'); return false;">{chapter}</a></li>' for chapter in chapters])
+    chapter_links = ''
+    
+    for chapter in chapters:
+        with open(os.path.join('XS', chapter), 'r', encoding='utf-8') as f:
+            title = f.readline().strip()  # 读取第一行作为章节标题
+        chapter_links += f'<li><a href="/xs/{chapter}" onclick="loadChapter(\'{chapter}\'); return false;">{title}</a></li>'
     
     return f'''
     <h1>小说章节</h1>
@@ -146,8 +151,10 @@ def read_chapter(chapter):
     # 读取指定章节的内容
     try:
         with open(os.path.join('XS', chapter), 'r', encoding='utf-8') as f:
-            content = f.read()
-        return f'<h1>章节 {chapter}</h1><p>{content}</p>'
+            lines = f.readlines()
+            title = lines[0].strip()  # 第一行作为标题
+            content = ''.join(lines[1:])  # 其余行作为内容
+        return f'<h1>{title}</h1><p>{content}</p>'  # 章节内容不再重复显示标题
     except FileNotFoundError:
         return '<h1>章节未找到</h1> <a href="/xs">返回章节列表</a>'
 
