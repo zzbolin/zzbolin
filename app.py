@@ -152,9 +152,8 @@ def read_chapter(chapter):
     try:
         with open(os.path.join('XS', chapter), 'r', encoding='utf-8') as f:
             lines = f.readlines()
-            title = lines[0].strip()  # 第一行作为标题
-            content = ''.join(lines[1:]).strip()  # 其余行作为内容，去掉前后空白
-        return f'<h1>{title}</h1><p>{content}</p>'  # 章节内容不再重复显示标题
+            content = ''.join(lines[1:]).strip()  # 只获取从第二行开始的内容
+        return f'<p>{content}</p>'  # 只返回内容，不再显示标题
     except FileNotFoundError:
         return '<h1>章节未找到</h1> <a href="/xs">返回章节列表</a>'
 
