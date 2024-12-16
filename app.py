@@ -130,12 +130,12 @@ def novel_index():
         chapter_links += f'<li><a href="/xs/{chapter}" onclick="loadChapter(\'{chapter}\'); return false;">第{index}章: {title}</a></li>'
     
     return f'''
-    <h1>小说章节</h1>
-    <div style="display: flex;">
-        <ul style="margin-right: 20px;">
+    <h1>ASNIWATW</h1>
+    <div style="display: flex; flex-wrap: wrap;">
+        <ul style="margin-right: 20px; list-style-type: none; padding: 0;">
             {chapter_links}
         </ul>
-        <div id="content" style="border: 1px solid #ccc; padding: 10px; flex-grow: 1;"></div>
+        <div id="content" style="border: 1px solid #ccc; padding: 10px; flex-grow: 1; min-width: 300px;"></div>
     </div>
     <script>
         function loadChapter(chapter) {{
@@ -144,6 +144,17 @@ def novel_index():
                 .then(data => document.getElementById('content').innerHTML = data);
         }}
     </script>
+    <style>
+        @media (max-width: 600px) {{
+            div {{
+                flex-direction: column;
+            }}
+            ul {{
+                margin-right: 0;
+                margin-bottom: 10px;
+            }}
+        }}
+    </style>
     '''
 
 @app.route('/xs/<chapter>')
